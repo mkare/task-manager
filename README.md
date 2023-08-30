@@ -7,7 +7,8 @@ This is a simple task manager app built with React, Redux Toolkit, and styled-co
 firebase config
 src/utils/firebase.ts
 
-`export const firebaseConfig = {
+```bash
+export const firebaseConfig = {
   apiKey: "api-key",
   authDomain: "",
   databaseURL: "",
@@ -15,7 +16,8 @@ src/utils/firebase.ts
   storageBucket: "",
   messagingSenderId: "",
   appId: "",
-};`
+};
+```
 
 This project was created with Vite and is built with React and TypeScript.
 
