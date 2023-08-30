@@ -28,8 +28,8 @@ const initialState: BaseState = {
 export const loginAsync = createAsyncThunk(
   "base/loginAsync",
   async (user: { email: string; password: string }) => {
-    // const response = await login(user);
-    // return response;
+    const response = await login(user);
+    return response;
   }
 );
 
@@ -48,7 +48,7 @@ export const baseSlice = createSlice({
       })
       .addCase(loginAsync.fulfilled, (state, action) => {
         state.status = "succeeded";
-        // state.user = action.payload;
+        state.user = action.payload as any;
       })
       .addCase(loginAsync.rejected, (state, action) => {
         state.status = "failed";
@@ -58,3 +58,6 @@ export const baseSlice = createSlice({
 });
 
 export default baseSlice.reducer;
+function login(user: { email: string; password: string }) {
+  throw new Error("Function not implemented." + user.email);
+}

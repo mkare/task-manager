@@ -1,4 +1,21 @@
-# React Starter Pack
+# Task Manager
+
+This is a simple task manager app built with React, Redux Toolkit, and styled-components
+
+## Firebase
+
+firebase config
+src/utils/firebase.ts
+
+`export const firebaseConfig = {
+  apiKey: "api-key",
+  authDomain: "",
+  databaseURL: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: "",
+};`
 
 This project was created with Vite and is built with React and TypeScript.
 
