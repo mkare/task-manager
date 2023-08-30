@@ -94,4 +94,5 @@ React Router,
 Redux Toolkit,
 Chroma.js,
 Classnames,
-Tailwind CSS
+Styled Components,
+Firebase
