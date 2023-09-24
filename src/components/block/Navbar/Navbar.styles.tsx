@@ -19,7 +19,7 @@ export const NavbarStyled = styled.nav`
     display: flex;
     justify-content: center;
     list-style: none;
-    gap: ${spacer.xs};
+    gap: ${spacer.xs} ${spacer.xs};
     margin: 0;
     padding: 0;
 
