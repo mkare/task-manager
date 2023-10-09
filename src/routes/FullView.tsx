@@ -8,8 +8,9 @@ import { fetchTaskByIdAsync } from "@store/tasksSlice";
 const FullView: React.FC = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string }>();
-  const task = useSelector((state: RootState) => state.tasks.currentTask);
-  const status = useSelector((state: RootState) => state.tasks.status);
+  const taskState = useSelector((state: RootState) => state.tasks);
+  const task = taskState.currentTask;
+  const status = taskState.status;
 
   useEffect(() => {
     if (typeof id === "string" && task?.id !== id) {
@@ -19,7 +20,7 @@ const FullView: React.FC = () => {
       // });
     }
 
-    // console.log("task__", task);
+    console.log("task__", task);
   }, [task]);
 
   if (status === "loading") {

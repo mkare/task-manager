@@ -22,7 +22,7 @@ const TaskHead: React.FC<TaskHeadProps> = ({
   remainingTime,
   priority,
   isOutOfDate,
-  tags,
+  tags = [],
 }) => {
   return (
     <TaskHeadStyled>
@@ -49,7 +49,7 @@ const TaskHead: React.FC<TaskHeadProps> = ({
         </div>
       ) : null}
 
-      {tags.length > 0 ? (
+      {tags && tags.length > 0 ? (
         <div>
           <p>Tags: </p>
           {/* <TagBadges tags={tags} /> */}
