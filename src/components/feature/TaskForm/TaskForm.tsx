@@ -113,6 +113,12 @@ export default function TaskForm({ task }: { task?: Task | null }) {
     formik.setFieldValue("tags", tags);
   };
 
+  const priorities = [
+    { value: "low", label: "Low" },
+    { value: "medium", label: "Medium" },
+    { value: "high", label: "High" },
+  ];
+
   function formatDate(date: Date) {
     const time = date.toTimeString().slice(0, 5);
     const dateStr = date.toISOString().slice(0, 10);
@@ -131,20 +137,20 @@ export default function TaskForm({ task }: { task?: Task | null }) {
       <TaskFormStyled onSubmit={formik.handleSubmit}>
         <div>
           <Input
-            onChange={formik.handleChange}
+            name="title"
             value={formik.values.title}
             placeholder="New Task"
-            name="title"
+            onChange={formik.handleChange}
             validationMessage={formik.errors.title}
           />
         </div>
 
         <div>
           <Textarea
-            onChange={formik.handleChange}
+            name="description"
             value={formik.values.description}
             placeholder="Description"
-            name="description"
+            onChange={formik.handleChange}
             validationMessage={formik.errors.description}
           />
         </div>
@@ -152,10 +158,10 @@ export default function TaskForm({ task }: { task?: Task | null }) {
         <TaskFormDateInputStyled>
           <label>Due Date</label>
           <Input
-            type="datetime-local"
             name="dueDate"
-            onChange={formik.handleChange}
             value={formik.values.dueDate}
+            type="datetime-local"
+            onChange={formik.handleChange}
             validationMessage={formik.errors.dueDate}
           />
         </TaskFormDateInputStyled>
@@ -164,35 +170,24 @@ export default function TaskForm({ task }: { task?: Task | null }) {
           <label>Created At</label>
           <Input
             name="createdAt"
-            onChange={formik.handleChange}
             value={renderFullDate(formik.values.createdAt)}
-            readonly
+            onChange={formik.handleChange}
             validationMessage={formik.errors.createdAt}
+            readonly
           />
         </TaskFormDateInputStyled>
 
         <Fieldset legend="Priority">
-          <Radio
-            checked={formik.values.priority === "low"}
-            onChange={() => formik.setFieldValue("priority", "low")}
-            value="low"
-            name="priority"
-            label="Low"
-          />
-          <Radio
-            checked={formik.values.priority === "medium"}
-            onChange={() => formik.setFieldValue("priority", "medium")}
-            value="medium"
-            name="priority"
-            label="Medium"
-          />
-          <Radio
-            checked={formik.values.priority === "high"}
-            onChange={() => formik.setFieldValue("priority", "high")}
-            value="high"
-            name="priority"
-            label="High"
-          />
+          {priorities.map((priority) => (
+            <Radio
+              key={priority.value}
+              name="priority"
+              value={priority.value}
+              label={priority.label}
+              onChange={() => formik.setFieldValue("priority", priority.value)}
+              checked={formik.values.priority === priority.value}
+            />
+          ))}
 
           {formik.errors.priority ? <div>{formik.errors.priority}</div> : null}
         </Fieldset>
