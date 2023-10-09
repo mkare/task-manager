@@ -42,8 +42,8 @@ const TaskList: React.FC<TaskListProps> = () => {
           (a, b) =>
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         )
-        .map((task: Task, index: number) => (
-          <TaskListItem key={index}>
+        .map((task: Task) => (
+          <TaskListItem key={task.id}>
             <NavLink
               to={`/view/${task.id}`}
               className={({ isActive, isPending }) =>
