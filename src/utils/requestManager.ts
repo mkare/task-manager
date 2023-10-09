@@ -6,6 +6,7 @@ import {
   getDocs,
   getFirestore,
   updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import { Task } from "types";
 import { initializeApp } from "firebase/app";
@@ -121,6 +122,28 @@ export const updateTaskById = async (task: Task): Promise<Task | null> => {
     return updatedTask;
   } catch (error) {
     // console.log("Error updating task with ID", task.id, ":", error);
+    return null;
+  }
+};
+
+// Remove a task by ID
+export const removeTaskById = async (id: string): Promise<string | null> => {
+  const taskRef = doc(tasksRef, id);
+
+  try {
+    // First, check if the task exists
+    const docSnapshot = await getDoc(taskRef);
+
+    if (!docSnapshot.exists()) {
+      return null; // if it doesn't exist, return null
+    }
+
+    // Otherwise, delete the task
+    await deleteDoc(taskRef);
+
+    return id; // return the ID of the deleted task
+  } catch (error) {
+    console.error("Error removing task with ID", id, ":", error);
     return null;
   }
 };

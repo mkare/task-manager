@@ -4,6 +4,7 @@ import {
   fetchTasks,
   fetchTaskById,
   updateTaskById,
+  removeTaskById,
 } from "@utils/requestManager";
 import { Task } from "types";
 
@@ -56,7 +57,7 @@ export const updateTaskAsync = createAsyncThunk(
 export const deleteTaskAsync = createAsyncThunk(
   "tasks/deleteTaskAsync",
   async (id: string) => {
-    const response = await fetchTaskById(id);
+    const response = await removeTaskById(id);
     return response;
   }
 );
@@ -100,6 +101,22 @@ const tasksSlice = createSlice({
             state.tasks.push(action.payload);
           }
         }
+      })
+      .addCase(fetchTaskByIdAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message ?? "Something went wrong";
+      })
+      .addCase(deleteTaskAsync.fulfilled, (state, action) => {
+        const removedTaskId = action.payload;
+        if (removedTaskId) {
+          state.tasks = state.tasks.filter((task) => task.id !== removedTaskId);
+        } else {
+          console.log("Task with ID not found or already removed.");
+        }
+      })
+      .addCase(deleteTaskAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message ?? "Something went wrong";
       });
   },
 });

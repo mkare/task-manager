@@ -106,6 +106,13 @@ export const CompletedListItem = styled.li`
 export const TaskListItem = styled.li`
   border-bottom: 2px solid ${lighten(0.6, themeColors.primary)};
   padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  button {
+    margin-right: ${spacer.sm};
+  }
 
   &:last-child {
     border-bottom: none;

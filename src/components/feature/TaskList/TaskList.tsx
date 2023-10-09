@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useAppDispatch, RootState } from "@store/index";
-import { fetchTasksAsync } from "@store/tasksSlice";
+import { fetchTasksAsync, deleteTaskAsync } from "@store/tasksSlice";
 import { NavLink } from "react-router-dom";
+import { Button } from "@components/base";
 import type { Task } from "types";
 import {
   TaskListStyled,
@@ -25,6 +26,16 @@ const TaskList: React.FC<TaskListProps> = () => {
   useEffect(() => {
     dispatch(fetchTasksAsync());
   }, [dispatch]);
+
+  const handleDeleteTask = (taskId: string) => {
+    const shouldDelete = window.confirm(
+      "Are you sure you want to delete this task?"
+    );
+    if (shouldDelete) {
+      dispatch(deleteTaskAsync(taskId));
+    }
+    dispatch(deleteTaskAsync(taskId));
+  };
 
   if (status === "loading") {
     return <TaskItemPlaceholder />;
@@ -52,6 +63,13 @@ const TaskList: React.FC<TaskListProps> = () => {
             >
               {task.title}
             </NavLink>
+            <Button
+              variant="danger"
+              size="sm"
+              onClick={() => handleDeleteTask(task.id)}
+            >
+              delete
+            </Button>
             {task.isCompleted && <CompletedListItem />}
           </TaskListItem>
         ))}
