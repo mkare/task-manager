@@ -63,7 +63,8 @@ export const addTask = async (task: Task): Promise<Task | string> => {
     });
 
     // Return an object representing the new task with its generated ID
-    return {
+
+    const newTask: Task = {
       ...task,
       id: docRef.id,
       createdAt: new Date().toISOString(),
@@ -71,6 +72,8 @@ export const addTask = async (task: Task): Promise<Task | string> => {
       subTasks: [],
       tags: task.tags || [],
     };
+
+    return newTask;
   } catch (error) {
     // If an error occurs, reject the promise with an error message
     return rejectWithValue("Unable to add task");
@@ -100,7 +103,7 @@ export const updateTaskById = async (task: Task): Promise<Task | null> => {
     const docSnapshot = await getDoc(taskRef);
 
     if (!docSnapshot.exists()) {
-      // console.log("task with task", task.id, "does not exist");
+      console.log("task with task", task.id, "does not exist");
       return null;
     }
 
@@ -121,7 +124,7 @@ export const updateTaskById = async (task: Task): Promise<Task | null> => {
     updatedTask.id = task.id;
     return updatedTask;
   } catch (error) {
-    // console.log("Error updating task with ID", task.id, ":", error);
+    console.log("Error updating task with ID", task.id, ":", error);
     return null;
   }
 };
@@ -135,6 +138,7 @@ export const removeTaskById = async (id: string): Promise<string | null> => {
     const docSnapshot = await getDoc(taskRef);
 
     if (!docSnapshot.exists()) {
+      console.error("Task with ID", id, "does not exist");
       return null; // if it doesn't exist, return null
     }
 
