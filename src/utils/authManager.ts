@@ -11,7 +11,7 @@ import {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// Kullanıcı kaydı
+// User registration
 export const signUp = async (
   email: string,
   password: string
@@ -30,7 +30,7 @@ export const signUp = async (
   }
 };
 
-// Kullanıcı girişi
+// User sign in
 export const signIn = async (
   email: string,
   password: string
@@ -49,7 +49,7 @@ export const signIn = async (
   }
 };
 
-// Kullanıcı çıkışı
+// User sign out
 export const signOutUser = async (): Promise<void> => {
   try {
     await signOut(auth);
